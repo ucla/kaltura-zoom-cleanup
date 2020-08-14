@@ -20,8 +20,26 @@ To work on this code, please do the following, assuming you have Visual Studio C
 
 1. Run [yarn](https://yarnpkg.com/getting-started/install)
 2. Install [AWS Toolkit for Visual Studio Code](https://docs.aws.amazon.com/toolkit-for-vscode/latest/userguide/setting-up.html)
-3. Install and setup [git-secrets](https://github.com/awslabs/git-secrets)
 
 ## Deployment instructions
 
-To be written once implemented.
+1. In AWS add a [new IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) that will be running this app.
+   - Grant the user this [aws-lambda-policy.json](https://gist.github.com/rlorenzo/df72cafa125fb5b9163803a3dbca6470)
+2. Install and configure the Serverless Framework
+   - npm install -g serverless
+   - sls config credentials --provider aws --key PUBLIC_KEY --secret SECRET_KEY
+     - Make sure PUBLIC_KEY and SECRET_KEY belongs to the user you created in Step 1.
+     - If you have multiple AWS credentials setup, you can set the given profile by calling:
+       `export AWS_PROFILE="<PROFILE NAME>"`
+3. Store the following secrets in your [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) in the us-west-2 region named "kmc_admin"
+   - KMC_PARTNER_ID (Found in your KMC > Settings > Integration > Partner ID)
+   - KMC_USER_ID (User from whom to delete orphaned Zoom recordings)
+   - KMC_USER_SECRET (Login as above user and go to KMC > Settings > Integration > User Secret)
+4. Deploy to AWS
+   `yarn deploy`
+
+## Resources
+
+- https://developer.kaltura.com/api-docs/Overview
+- https://dev.to/adnanrahic/how-to-deploy-a-nodejs-application-to-aws-lambda-using-serverless-2nc7
+- https://www.serverless.com/blog/cron-jobs-on-aws/

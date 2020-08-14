@@ -1,10 +1,13 @@
 {
+  "name": "kaltura-zoom-cleanup",
+  "license": "BSD-2-Clause",
   "scripts": {
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "deploy": "yarn --production && sls deploy --stage=prod --verbose"
   },
   "dependencies": {
-    "dotenv": "^8.2.0",
+    "@jwerre/secrets": "^0.2.2",
     "kaltura-client": "^16.5.0"
   },
   "devDependencies": {
