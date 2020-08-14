@@ -3,6 +3,11 @@ const awssecrets = require('@jwerre/secrets').configSync({
   region: 'us-west-2',
 });
 
+// Kaltura client outputs the connection details including password to the
+// console.log! Disable logger by renaming it.
+const logger = console.log;
+console.log = function log() {};
+
 module.exports.cleanup = async () => {
   if (!awssecrets.kmc_admin) {
     logger('No KMC Admin secrets found');
@@ -16,11 +21,6 @@ module.exports.cleanup = async () => {
   const userId = awssecrets.kmc_admin.KMC_USER_ID;
   const type = kaltura.enums.SessionType.USER;
   const partnerId = awssecrets.kmc_admin.KMC_PARTNER_ID;
-
-  // Kaltura client outputs the connection details including password to the
-  // console.log! Disable logger by renaming it.
-  logger = console.log;
-  console.log = function() {}
 
   logger('Cleaning up orphaned Zoom recordings');
 
@@ -56,5 +56,5 @@ module.exports.cleanup = async () => {
     })
     .execute(client);
 
-    logger('DONE!');
+  logger('DONE!');
 };
