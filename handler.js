@@ -26,8 +26,9 @@ module.exports.cleanup = async () => {
 
   return kaltura.services.session
     .start(secret, userId, type, partnerId)
-    .completion((success, ks) => {
-      if (!success) throw new Error(ks.message);
+    .execute(client)
+    .then((ks) => {
+      if (!ks) throw new Error(ks.message);
       logger('Kaltura services session opened');
       client.setKs(ks);
       const filter = new kaltura.objects.BaseEntryFilter();
@@ -37,7 +38,7 @@ module.exports.cleanup = async () => {
       const pager = new kaltura.objects.FilterPager();
       pager.pageSize = 500; // Max page size is 500.
 
-      kaltura.services.baseEntry.listAction(filter, pager)
+      return kaltura.services.baseEntry.listAction(filter, pager)
         .execute(client)
         .then((searchResults) => {
           logger(`Processing ${searchResults.totalCount} results`);
@@ -54,6 +55,5 @@ module.exports.cleanup = async () => {
               });
           });
         });
-    })
-    .execute(client);
+    });
 };
