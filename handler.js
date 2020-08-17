@@ -24,10 +24,11 @@ module.exports.cleanup = async () => {
 
   logger('Cleaning up orphaned Zoom recordings');
 
-  kaltura.services.session
+  return kaltura.services.session
     .start(secret, userId, type, partnerId)
     .completion((success, ks) => {
       if (!success) throw new Error(ks.message);
+      logger('Kaltura services session opened');
       client.setKs(ks);
       const filter = new kaltura.objects.BaseEntryFilter();
       filter.userIdEqual = userId;
@@ -55,6 +56,4 @@ module.exports.cleanup = async () => {
         });
     })
     .execute(client);
-
-  logger('DONE!');
 };

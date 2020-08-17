@@ -19,7 +19,7 @@ It will look for videos owned by the specified default user that have a descript
 To work on this code, please do the following, assuming you have Visual Studio Code, NodeJS, npm, and yarn installed:
 
 1. Run [yarn](https://yarnpkg.com/getting-started/install)
-2. Install [AWS Toolkit for Visual Studio Code](https://docs.aws.amazon.com/toolkit-for-vscode/latest/userguide/setting-up.html)
+2. To run locally, run `yarn local` to test.
 
 ## Deployment instructions
 

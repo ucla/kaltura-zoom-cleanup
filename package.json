@@ -2,9 +2,10 @@
   "name": "kaltura-zoom-cleanup",
   "license": "BSD-2-Clause",
   "scripts": {
+    "deploy": "yarn --production && sls deploy --stage=prod --verbose && yarn",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "deploy": "yarn --production && sls deploy --stage=prod --verbose"
+    "local": "sls invoke local -f cleanup"
   },
   "dependencies": {
     "@jwerre/secrets": "^0.2.2",
