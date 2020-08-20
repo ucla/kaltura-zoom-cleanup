@@ -10,7 +10,7 @@ Rather than leave those "orphaned" recordings on the KMC that can potentially in
 
 ## Implementation
 
-This is a PHP script that will be run as a AWS Lamda function to run once a day. It connects to the a given KMC using the Kaltura API.
+This is a PHP script that will be run as a AWS Lamda function to run once a hour. It connects to the a given KMC using the Kaltura API.
 
 It will look for videos owned by the specified default user that have a description that starts with "Zoom Recording". If found, it will delete that entry in the KMC and log that action for debugging later.
 
