@@ -5,6 +5,7 @@ provider:
   runtime: nodejs12.x
   region: us-west-2
   stage: dev
+  memorySize: 512
 
   iamRoleStatements:
     - Effect: 'Allow'
@@ -16,6 +17,8 @@ provider:
 functions:
   cleanup:
     handler: handler.cleanup
+    description: AWS Lambda function to delete all Zoom recordings associated to the default user
+    timeout: 30
     events:
       # Run every day at midnight PDT (07:00 UTC)
       - schedule: cron(0 7 * * ? *)

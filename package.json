@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "@jwerre/secrets": "^0.2.2",
-    "kaltura-client": "^16.5.0"
+    "kaltura-client": "^16.5.0",
+    "sleep-promise": "^8.0.1"
   },
   "devDependencies": {
     "eslint": "^7.6.0",
