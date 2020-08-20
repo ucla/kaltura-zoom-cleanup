@@ -1,6 +1,6 @@
 # package directories
-node_modules
-jspm_packages
+vendor
+.phplint-cache
 
 # Serverless directories
 .serverless

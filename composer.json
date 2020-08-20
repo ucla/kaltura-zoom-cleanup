@@ -1,0 +1,10 @@
+{
+    "require": {
+        "bref/bref": "^0.5.29",
+        "kaltura/api-client-library": "^16.5",
+        "aws/aws-sdk-php": "^3.150"
+    },
+    "require-dev": {
+        "overtrue/phplint": "^2.0"
+    }
+}

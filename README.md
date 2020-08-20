@@ -10,7 +10,7 @@ Rather than leave those "orphaned" recordings on the KMC that can potentially in
 
 ## Implementation
 
-This is a NodeJS script that will be run as a AWS Lamda function to run once a day. It connects to the a given KMC using the Kaltura API.
+This is a PHP script that will be run as a AWS Lamda function to run once a day. It connects to the a given KMC using the Kaltura API.
 
 It will look for videos owned by the specified default user that have a description that starts with "Zoom Recording". If found, it will delete that entry in the KMC and log that action for debugging later.
 
@@ -18,8 +18,9 @@ It will look for videos owned by the specified default user that have a descript
 
 To work on this code, please do the following, assuming you have Visual Studio Code, NodeJS, npm, and yarn installed:
 
-1. Run [yarn](https://yarnpkg.com/getting-started/install)
-2. To run locally, run `yarn local` to test.
+1. Download [composer](https://getcomposer.org/download/)
+2. Run `php composer.phar install`
+3. Install [Serverless](https://www.serverless.com/framework/docs/getting-started/)
 
 ## Deployment instructions
 
@@ -34,12 +35,12 @@ To work on this code, please do the following, assuming you have Visual Studio C
 3. Store the following secrets in your [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) in the us-west-2 region named "kmc_admin"
    - KMC_PARTNER_ID (Found in your KMC > Settings > Integration > Partner ID)
    - KMC_USER_ID (User from whom to delete orphaned Zoom recordings)
-   - KMC_USER_SECRET (Login as above user and go to KMC > Settings > Integration > User Secret)
+   - KMC_ADMIN_SECRET (Found in your KMC > Settings > Integration > Administrator Secret)
 4. Deploy to AWS
-   `yarn deploy`
+   `sls deploy`
 
 ## Resources
 
 - https://developer.kaltura.com/api-docs/Overview
-- https://dev.to/adnanrahic/how-to-deploy-a-nodejs-application-to-aws-lambda-using-serverless-2nc7
+- https://bref.sh/
 - https://www.serverless.com/blog/cron-jobs-on-aws/
