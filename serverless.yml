@@ -4,7 +4,7 @@ provider:
   name: aws
   region: us-west-2
   runtime: provided
-  stage: prod
+  stage: ${opt:stage, 'prod'}
   memorySize: 256
 
   iamRoleStatements:
@@ -16,6 +16,7 @@ provider:
 
 plugins:
   - ./vendor/bref/bref
+  - serverless-plugin-aws-alerts
 
 functions:
   cleanup:
@@ -25,10 +26,18 @@ functions:
       - ${bref:layer.php-73}
     timeout: 30
     events:
-      # Run every day at midnight PDT (07:00 UTC)
+      # Run every hour
       - schedule: cron(0 * * * ? *)
 
-# Exclude files from deployment
-package:
-  exclude:
-    - 'tests/**'
+custom:
+  alerts:
+    stages:
+      - ${opt:stage,'prod'}
+    topics:
+      alarm:
+        topic: ${self:service}-${opt:stage,'prod'}-alerts-alarm
+        notifications:
+          - protocol: email
+            endpoint: ccle-operations@lists.ucla.edu
+    alarms:
+      - functionErrors

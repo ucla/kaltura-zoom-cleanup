@@ -16,11 +16,13 @@ It will look for videos owned by the specified default user that have a descript
 
 ## Development setup
 
-To work on this code, please do the following, assuming you have Visual Studio Code, NodeJS, npm, and yarn installed:
+To work on this code, please do the following:
 
 1. Download [composer](https://getcomposer.org/download/)
 2. Run `php composer.phar install`
 3. Install [Serverless](https://www.serverless.com/framework/docs/getting-started/)
+4. Install [Yarn](https://yarnpkg.com/getting-started/install)
+5. Run `yarn`
 
 ## Deployment instructions
 

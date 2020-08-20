@@ -64,11 +64,13 @@ return function ($event) {
 
   } catch(AwsException $e) {
       // Most likely the error is the secret isn't found.
-      return $e->getMessage();
+      logger($e->getMessage());
+      throw $e;
   } catch(Exception $e) {
       // Must be a Kaltura error.
+      logger($e->getMessage());
       logger($e->getTraceAsString());
-      return $e->getMessage();
+      throw $e;
   }
 
   return "Deleted {$numDeleted} out of {$totalEntries} entries";
