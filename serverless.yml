@@ -24,7 +24,7 @@ functions:
     description: AWS Lambda function to delete all Zoom recordings associated to the default user
     layers:
       - ${bref:layer.php-73}
-    timeout: 30
+    timeout: 300
     events:
       # Run every hour
       - schedule: cron(0 * * * ? *)
