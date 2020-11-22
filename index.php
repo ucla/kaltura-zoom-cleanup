@@ -54,11 +54,15 @@ return function ($event) {
       $description = implode("\n  ", explode("\n", $entry->description));
       logger("Deleting entryId {$entry->id} with description:\n  {$description}");
 
-      // Returns null if there is no error.
-      $result = $client->getMediaService()->delete($entry->id);
-      if (is_null($result)) {
-        ++$numDeleted;
-        logger("Deleted entryId {$entry->id}");
+      try {
+        // Returns null if there is no error.
+        $result = $client->getMediaService()->delete($entry->id);
+        if (is_null($result)) {
+          ++$numDeleted;
+          logger("Deleted entryId {$entry->id}");
+        }
+      } catch (ApiException $e) {
+        logger("Cannot delete entryId {$entry->id}; skipping.\n" . $e->getMessage());
       }
     }
 
